@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         txtHistory = findViewById(R.id.txtHistory);
         txtServiceStatus = findViewById(R.id.txtServiceStatus);
 
-        // KORAK A: Povuci stare podatke iz baze čim se upali ovaj ekran
+        // KORAK A: stari podaci iz baze čim se upali ovaj ekran
         ucitajPodatkeIzBaze();
 
         btnMainProfileIcon = findViewById(R.id.btnMainProfileIcon);
@@ -103,14 +103,14 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            // Provjera logika kilometara prije nego što išta saberemo
-            if (zadnjiServisKM > 0 && trenutniKilometri < zadnjiServisKM) {
+            // KORIŠTENJE POMOĆNE KLASE: Provjera logike kilometara (Unit test uslov)
+            if (!ServisniMetrik.jeLiKilometrazaValidna(trenutniKilometri, zadnjiServisKM)) {
                 Toast.makeText(MainActivity.this, "Trenutni kilometri ne mogu biti manji od kilometara servisa!", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            // 3. MATEMATIKA: Računamo trenutni unos i dodajemo na SVEUKUPNI trošak
-            double trenutniUnosUkupno = gorivoCijena + servisCijena;
+            // KORIŠTENJE POMOĆNE KLASE: Računamo trenutni unos i dodajemo na SVEUKUPNI trošak
+            double trenutniUnosUkupno = ServisniMetrik.racunajTrenutniTrosak(gorivoCijena, servisCijena);
             ukupanTrosakSveukupno += trenutniUnosUkupno; // Sabiramo stari iznos sa novim
 
             // KORAK B: Spašavanje novih ažuriranih podataka na Firebase Firestore
@@ -189,21 +189,22 @@ public class MainActivity extends AppCompatActivity {
 
         // 5. LOGIKA ZA SERVIS (15.000 km ili 365 dana)
         if (zadnjiServisKM > 0 && trenutniKilometri >= zadnjiServisKM) {
-            int predjenoOdServisa = trenutniKilometri - zadnjiServisKM;
-            int preostaloKM = 15000 - predjenoOdServisa;
+
+            // KORIŠTENJE POMOĆNE KLASE: Računanje preostalih kilometara kroz izdvojenu logiku
+            int preostaloKM = ServisniMetrik.izracunajPreostaloKM(trenutniKilometri, zadnjiServisKM);
             int preostaloDana = 365;
 
-            // Slučaj A: Korisnik je već prešao 15.000 km -> CRVENO UPOZORENJE
+            // Slučaj A: Korisnik je već prešao 15.000 km
             if (preostaloKM <= 0) {
                 txtServiceStatus.setText("⚠️ HITNO NA SERVIS!\nPrešli ste limit za " + Math.abs(preostaloKM) + " km!");
                 txtServiceStatus.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
             }
-            // Slučaj B: Ostalo je manje od 1000 km do servisa -> ŽUTO/NARANDŽASTO UPOZORENJE
+            // Slučaj B: Ostalo je manje od 1000 km do servisa
             else if (preostaloKM <= 1000) {
                 txtServiceStatus.setText("⚠️ PAŽNJA!\nOstalo vam je još samo " + preostaloKM + " km do servisa!");
-                txtServiceStatus.setTextColor(Color.parseColor("#FFD700")); // Drečavo žuta boja
+                txtServiceStatus.setTextColor(Color.parseColor("#FFD700"));
             }
-            // Slučaj C: Sve je u redu, ima još dosta do servisa -> CRNA/ZELENA BOJA
+            // Slučaj C: Sve je u redu, ima još dosta do servisa
             else {
                 String statusPoruka = "🚗 Do servisa preostalo još:\n" +
                         "📍 " + preostaloKM + " km\n" +
