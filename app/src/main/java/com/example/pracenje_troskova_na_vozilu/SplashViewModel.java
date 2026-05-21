@@ -16,13 +16,13 @@ public class SplashViewModel extends ViewModel {
     }
 
     public void startTimer() {
-        // tajmer drzi splash 3 sekunde pa okida prelazak
+        // tajmer drzi splash 1 sekundu pa okida prelazak
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 // saljem true signal da je vrijeme za promjenu ekrana
                 navigateToNextScreen.setValue(true);
             }
-        }, 3000);
+        }, 1000);
     }
 }

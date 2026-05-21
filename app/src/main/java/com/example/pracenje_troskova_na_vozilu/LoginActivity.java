@@ -30,10 +30,11 @@ public class LoginActivity extends AppCompatActivity {
         // povezivanje sa viewmodelom
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        // prijava valja? ako valja, vodi na glavni ekran
+        // prijava valja? ako valja, vodi na splash pa na glavni ekran
         viewModel.getLoginSuccess().observe(this, success -> {
             if (success != null && success) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
+                intent.putExtra("SLEDECI_EKRAN", "MAIN"); // ovo salje na main kroz splash
                 startActivity(intent);
                 finish();
             }
@@ -53,9 +54,10 @@ public class LoginActivity extends AppCompatActivity {
             viewModel.loginUser(email, password);
         });
 
-        // klik na tekst otvara ekran za registraciju
+        // klik na tekst otvara splash pa ekran za registraciju
         goToRegisterTxt.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
+            intent.putExtra("SLEDECI_EKRAN", "REGISTER"); // saljemo signal za register
             startActivity(intent);
         });
     }

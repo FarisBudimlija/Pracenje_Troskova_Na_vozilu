@@ -217,8 +217,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //vracanje na login ide preko splasha
     private void vrateNaLogin() {
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+        intent.putExtra("SLEDECI_EKRAN", "LOGIN"); // saljemo signal za login
         startActivity(intent);
         finish();
     }

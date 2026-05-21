@@ -19,33 +19,36 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Povezivanje komponenti sa XML-om
+        // povezivanje komponenti sa xml-om
         emailRegInput = findViewById(R.id.emailRegInput);
         passwordRegInput = findViewById(R.id.passwordRegInput);
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         registerBtn = findViewById(R.id.registerBtn);
 
-        // Inicijalizacija ViewModela
+        // inicijalizacija viewmodel-a
         viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
-        // Pratimo da li je registracija uspješna
+        // pratimo da li je registracija uspjesna
         viewModel.getRegisterSuccess().observe(this, success -> {
             if (success != null && success) {
                 Toast.makeText(RegisterActivity.this, "Registracija uspjesna!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+
+                // nakon uspjeha idemo na splash pa na glavni ekran
+                Intent intent = new Intent(RegisterActivity.this, SplashActivity.class);
+                intent.putExtra("SLEDECI_EKRAN", "MAIN");
                 startActivity(intent);
                 finish();
             }
         });
 
-        // Pratimo greške sa Firebase-a ili unosa
+        // pratimo greske sa firebase-a ili unosa
         viewModel.getErrorMessage().observe(this, error -> {
             if (error != null) {
                 Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_LONG).show();
             }
         });
 
-        // Klik na dugme šalje podatke u ViewModel
+        // klik na dugme šalje podatke u viewmodel
         registerBtn.setOnClickListener(v -> {
             String email = emailRegInput.getText().toString().trim();
             String password = passwordRegInput.getText().toString().trim();
@@ -53,5 +56,14 @@ public class RegisterActivity extends AppCompatActivity {
 
             viewModel.registerUser(email, password, confirmPassword);
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // ako klikne nazad na telefonu ide na splash pa na login
+        Intent intent = new Intent(RegisterActivity.this, SplashActivity.class);
+        intent.putExtra("SLEDECI_EKRAN", "LOGIN");
+        startActivity(intent);
+        finish();
     }
 }
