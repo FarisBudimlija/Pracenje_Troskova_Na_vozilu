@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,6 +14,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel viewModel;
     private EditText emailInput, passwordInput;
     private Button loginBtn;
+    private TextView goToRegisterTxt; // nova komponenta za prelazak
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +25,12 @@ public class LoginActivity extends AppCompatActivity {
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
         loginBtn = findViewById(R.id.loginBtn);
+        goToRegisterTxt = findViewById(R.id.goToRegisterTxt); // povezivanje teksta
 
         // povezivanje sa viewmodelom
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        // pratim hocu li prebaciti korisnika na glavni ekran
+        // prijava valja? ako valja, vodi na glavni ekran
         viewModel.getLoginSuccess().observe(this, success -> {
             if (success != null && success) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -36,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // pratim greske i izbacujem toast poruku
+        // greska sa unosa? izbaci je u toast poruci
         viewModel.getErrorMessage().observe(this, error -> {
             if (error != null) {
                 Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
@@ -48,6 +51,12 @@ public class LoginActivity extends AppCompatActivity {
             String email = emailInput.getText().toString().trim();
             String password = passwordInput.getText().toString().trim();
             viewModel.loginUser(email, password);
+        });
+
+        // klik na tekst otvara ekran za registraciju
+        goToRegisterTxt.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 }
