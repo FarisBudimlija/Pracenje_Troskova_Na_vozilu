@@ -19,16 +19,16 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // povezivanje komponenti sa xml-om
+        // Povezivanje komponenti sa XML-om
         emailRegInput = findViewById(R.id.emailRegInput);
         passwordRegInput = findViewById(R.id.passwordRegInput);
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         registerBtn = findViewById(R.id.registerBtn);
 
-        // inicijalizacija viewmodela
+        // Inicijalizacija ViewModela
         viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
-        // registracija valja? ako valja, vodi na login ekran
+        // Pratimo da li je registracija uspješna
         viewModel.getRegisterSuccess().observe(this, success -> {
             if (success != null && success) {
                 Toast.makeText(RegisterActivity.this, "Registracija uspjesna!", Toast.LENGTH_SHORT).show();
@@ -38,18 +38,19 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // greska sa unosa? izbaci je u toast poruci
+        // Pratimo greške sa Firebase-a ili unosa
         viewModel.getErrorMessage().observe(this, error -> {
             if (error != null) {
-                Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_LONG).show();
             }
         });
 
-        // klik na dugme kupi podatke sa ekrana i salje u viewmodel na provjeru
+        // Klik na dugme šalje podatke u ViewModel
         registerBtn.setOnClickListener(v -> {
             String email = emailRegInput.getText().toString().trim();
             String password = passwordRegInput.getText().toString().trim();
             String confirmPassword = confirmPasswordInput.getText().toString().trim();
+
             viewModel.registerUser(email, password, confirmPassword);
         });
     }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "249299407842",
+    "project_id": "pracenjetroskovanavozilu",
+    "storage_bucket": "pracenjetroskovanavozilu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249299407842:android:635762fdf0997144b2dfbb",
+        "android_client_info": {
+          "package_name": "com.example.pracenje_troskova_na_vozilu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQmc8GBYMr-N4shNHkDQFxI5G2hk06u88"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
