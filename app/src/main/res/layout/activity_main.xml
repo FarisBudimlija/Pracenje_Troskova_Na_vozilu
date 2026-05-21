@@ -1,153 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://tools.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/btnMainProfileIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        android:contentDescription="Profil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+    <TextView
+        android:id="@+id/txtAppTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Praćenje Troškova Vozila"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btnMainProfileIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnMainProfileIcon" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Praćenje Troškova i Servisa"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="15dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnMainProfileIcon">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@android:drawable/dialog_holo_light_frame"
-            android:padding="12dp"
-            android:layout_marginBottom="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🔔 STATUS SERVISNOG INTERVALA:"
-                android:textStyle="bold"
-                android:textColor="#C62828"
-                android:textSize="14sp"/>
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txtServiceStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Unesite podatke o zadnjem servisu i trenutne kilometre za proračun."
-                android:textSize="15sp"
-                android:textColor="#222222"
-                android:layout_marginTop="5dp" />
+                android:layout_marginBottom="12dp"
+                android:background="#FFE0B2"
+                android:padding="12dp"
+                android:text="Status servisnog intervala..."
+                android:textColor="#E65100"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UNOS GORIVA"
+                android:textStyle="bold"
+                android:textColor="#333333" />
+
+            <EditText
+                android:id="@+id/inputFuelPrice"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Cijena goriva (KM)"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/inputFuelLiters"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:hint="Količina goriva (Litri)"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TRENUTNO STANJE"
+                android:textStyle="bold"
+                android:textColor="#333333" />
+
+            <EditText
+                android:id="@+id/inputCurrentKM"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:hint="Trenutna kilometraža vozila (km)"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UNOS ZADNJEG SERVISA"
+                android:textStyle="bold"
+                android:textColor="#333333" />
+
+            <EditText
+                android:id="@+id/inputServicePrice"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Cijena servisa (KM)"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/inputServiceKM"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:hint="Urađen na kilometraži (km)"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Izračunaj i Ažuriraj Podatke"
+                android:backgroundTint="#1976D2"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/txtHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F5F5F5"
+                android:padding="12dp"
+                android:text="ZADNJI FINANSIJSKI UNOS:\nUčitavanje podataka..."
+                android:textSize="13sp"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ODJAVI SE"
+                android:backgroundTint="#FF3333" />
+
         </LinearLayout>
+    </ScrollView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="⛽ UNOS GORIVA"
-            android:textStyle="bold"
-            android:textColor="#2E7D32"
-            android:layout_marginBottom="5dp"/>
-
-        <EditText
-            android:id="@+id/inputFuelPrice"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Cijena goriva (KM)"
-            android:inputType="numberDecimal"
-            android:background="@android:drawable/editbox_background_normal"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp"/>
-
-        <EditText
-            android:id="@+id/inputFuelLiters"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Količina goriva (Litar)"
-            android:inputType="numberDecimal"
-            android:background="@android:drawable/editbox_background_normal"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp"/>
-
-        <EditText
-            android:id="@+id/inputCurrentKM"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Trenutna kilometraža vozila (km)"
-            android:inputType="number"
-            android:background="@android:drawable/editbox_background_normal"
-            android:padding="10dp"
-            android:layout_marginBottom="15dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🔧 UNOS ZADNJEG SERVISA"
-            android:textStyle="bold"
-            android:textColor="#1565C0"
-            android:layout_marginBottom="5dp"/>
-
-        <EditText
-            android:id="@+id/inputServicePrice"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Cijena servisa (KM)"
-            android:inputType="numberDecimal"
-            android:background="@android:drawable/editbox_background_normal"
-            android:padding="10dp"
-            android:layout_marginBottom="10dp"/>
-
-        <EditText
-            android:id="@+id/inputServiceKM"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Urađen na kilometraži (km)"
-            android:inputType="number"
-            android:background="@android:drawable/editbox_background_normal"
-            android:padding="10dp"
-            android:layout_marginBottom="15dp"/>
-
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Izračunaj i Ažuriraj Podatke"
-            android:backgroundTint="#1565C0"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="20dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="📊 ZADNJI FINANSIJSKI UNOS"
-            android:textStyle="bold"
-            android:textColor="#E65100"
-            android:layout_marginBottom="5dp"/>
-
-        <TextView
-            android:id="@+id/txtHistory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Trenutno nema finansijskih troškova."
-            android:textSize="14sp"
-            android:background="@android:drawable/dialog_holo_light_frame"
-            android:padding="12dp"
-            android:textColor="#444444"
-            android:layout_marginBottom="25dp"/>
-
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Odjavi se"
-            android:backgroundTint="#C62828"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center_horizontal"/>
-
-    </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
