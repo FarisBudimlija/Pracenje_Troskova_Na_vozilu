@@ -20,16 +20,16 @@ public class SplashActivity extends AppCompatActivity {
         // pratim promjene iz viewmodela i cekam signal za prelazak
         viewModel.getNavigateToNextScreen().observe(this, shouldNavigate -> {
             if (shouldNavigate != null && shouldNavigate) {
-                // idemo na mainactivity kad tajmer zavrsi
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                // idemo na login kad tajmer zavrsi
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
 
-                // gasim splash da se korisnik ne moze vratiti nazad klikom na back
+                //gasenje splasha
                 finish();
             }
         });
 
-        // pokrecem tajmer iz viewmodela
+        // tajmer iz viewmodela
         viewModel.startTimer();
     }
 }
