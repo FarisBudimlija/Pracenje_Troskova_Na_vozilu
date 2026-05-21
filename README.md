@@ -22,7 +22,7 @@ Poslovna matematika aplikacije je potpuno izmještena u klasu `ServisniMetrik` i
 * `testRacunajTrenutniTrosak` - Testiranje preciznosti sabiranja troškova.
 
    **-Pitate se kako pokrenuti?-**
-1. Klonirajte repozitorij: `git clone`
+1. Klonirajte repozitorij: `git clone [LINK_TVOG_REPOZITORIJA]`
 2. Otvorite projekat u Android Studio okruženju.
 3. Povežite projekat sa vlastitom Firebase instancom (dodavanjem `google-services.json` fajla) ili pokrenite na emulatoru.
 4. Za pokretanje testova: Desni klik na folder `test` -> `Run 'ServisniMetrikTest'`.
